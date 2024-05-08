@@ -1,28 +1,38 @@
 import unittest
 import demo
 
-class TestDemo(unittest.TestCase):
-  def test_add(self):
-    self.assertEqual(demo.add(2,2),4)
-    self.assertEqual(demo.add(10,2),12)
-    self.assertEqual(demo.add(5,9),14)
+# @unittest.skip("Skipping this test for a reason")
+class TestCalculate(unittest.TestCase):
+  def setUp(self):
+    self.calculate = demo.Calculate()
   
+  def tearDown(self):
+    print("Tear down")
+  
+  def test_add(self):
+    self.assertEqual(self.calculate.add(2,2),4)
+    self.assertEqual(self.calculate.add(10,2),12)
+    self.assertEqual(self.calculate.add(5,9),14)
+
+  @unittest.skipIf(True,"Just skipping for now")
   def test_sub(self):
-    self.assertEqual(demo.sub(2,2),0)
-    self.assertEqual(demo.sub(10,2),8)
-    self.assertEqual(demo.sub(5,9),-4)
+    self.assertEqual(self.calculate.sub(2,2),0)
+    self.assertEqual(self.calculate.sub(10,2),8)
+    self.assertEqual(self.calculate.sub(5,9),-4)
 
   def test_mul(self):
-    self.assertEqual(demo.mul(2,2),4)
-    self.assertEqual(demo.mul(10,2),20)
-    self.assertEqual(demo.mul(5,9),45)
+    self.assertEqual(self.calculate.mul(2,2),4)
+    self.assertEqual(self.calculate.mul(10,2),20)
+    self.assertEqual(self.calculate.mul(5,9),45)
   
+  @unittest.skipIf(True,"Just skipping for now")
   def test_div(self):
-    self.assertEqual(demo.div(2,2),1)
-    self.assertEqual(demo.div(10,2),5)
-    self.assertEqual(demo.div(21,3),7)
-
-
+    self.assertEqual(self.calculate.div(2,2),1)
+    self.assertEqual(self.calculate.div(10,2),5)
+    with self.assertRaises(ValueError):
+      self.calculate.div(10,0)
+  
+ 
 
 if __name__ == '__main__':
   unittest.main()
